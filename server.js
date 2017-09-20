@@ -14,7 +14,9 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (request, response) {
   // response.sendFile(__dirname + '/views/index.html');
-  response.json({"Header": request.headers['user-agent']});
+  var ips = [];
+  ips = request.headers['x-forwarded-for'].split(',');
+  response.json({"IP Address": ips[0]});
 });
 
 app.get("/dreams", function (request, response) {
