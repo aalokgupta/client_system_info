@@ -3,6 +3,7 @@
 
 // init project
 var express = require('express');
+var os = require('os');
 var app = express();
 
 // we've started you off with Express, 
@@ -16,7 +17,9 @@ app.get("/", function (request, response) {
   // response.sendFile(__dirname + '/views/index.html');
   var ips = [];
   ips = request.headers['x-forwarded-for'].split(',');
-  response.json({"IP Address": ips[0]});
+  response.json({"IP Address": ips[0], 
+                 "Software": os.type() +" "+ os.arch(),
+                  "Language": request.headers["accept-language"].split(',')[0]});
 });
 
 app.get("/dreams", function (request, response) {
